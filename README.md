@@ -9,6 +9,67 @@ Runs millions of simulated hands to answer two practical questions:
 
 ---
 
+## Simulation Results (1 000 000 hands)
+
+> Results from `results/simulation-results-1/`. All EV values are in **units of your Ante bet**.
+> A negative EV means an expected loss — you are looking for the *least-negative* decisions.
+
+### Question 1 — Which hands to raise 4× pre-flop?
+
+**86 of 169 starting hands → raise 4×. 83 → check.**
+
+| Category | Raise 4× | Notes |
+|---|---|---|
+| **Pairs** | **33–AA** (all except 22) | 22 is marginally better to check (ev_diff −0.09) |
+| **Suited aces** | **A2s–AKs** (all 12) | Every suited ace benefits from raising |
+| **Offsuit aces** | **A2o–AKo** (all 12) | Every offsuit ace benefits from raising |
+| **King suited** | **K2s–KQs** (all 11) | Even K2s is better to raise |
+| **King offsuit** | **K3o–KQo** | K2o is the only King that checks (ev_diff −0.07) |
+| **Queen/Jack/Ten** | Most suited + strong offsuit | See below |
+
+**Best raises (ev_diff > 0.5 — large advantage):**
+```
+AA KK QQ JJ TT 99 88 77 66 55
+AKs AQs AJs ATs A9s A8s A7s  AKo AQo AJo ATo
+KTs KQs KJs K9s  KQo KJo
+QJs QTs Q9s
+```
+
+**Do NOT raise 4× — check pre-flop:**
+```
+22
+All weak offsuit low hands: 32o 42o 43o 52o 53o 62o 63o 64o 72o 73o 74o 75o
+  76o 82o 83o 84o 85o 86o 87o 92o 93o 94o 95o 96o 97o T2o T3o T4o T5o T6o
+  T7o T8o T9o(marginal)
+Low suited connectors: 32s 42s 43s 52s 53s 54s 62s 63s 64s 72s 73s 74s 75s
+  76s 83s 84s 85s 86s 87s 92s 93s 94s 95s 96s 97s(marginal) 98s T2s T3s T4s
+  T5s(marginal) T6s T7s(marginal) T8s(marginal)
+Weak Jacks: J2o J3o J4o J5o J6o J7o  J2s J3s J4s J5s J6s
+K2o
+Q2o Q3o Q5o Q7s
+98o 98s(marginal)
+```
+
+### Question 2 — Bet 2× on the flop with a face-card high when the flop pairs?
+
+**67 of 88 applicable hand types → YES, bet 2×. Only 21 → check.**
+
+**The general rule: bet the flop.** Exceptions where checking is better:
+
+| Check the flop with… | EV diff | Note |
+|---|---|---|
+| **AKs** | −0.68 | Slow-play: strong enough that the river bet captures more value |
+| **Q7s** | −1.06 | Small sample / high SEM — treat with caution |
+| **J7s, J2s** | −0.22 to −0.26 | Weak Jx suited: kicker too weak, fold equity is low |
+| **J7o, J4o, J6o, J2o** | −0.07 to −0.20 | Weak Jx offsuit |
+| **K8s** | −0.21 | Unexpectedly weak; possibly noise |
+| **QJo** | −0.06 | Marginal — barely significant |
+| **K2o, K4o, Q2o, Q3o** | −0.03 to −0.08 | Weak kickers with low flush draw potential |
+
+**For all other face-card hands — any Ax, Kx (except K2o/K4o/K8s), Qx strong, J9+ — bet 2× when the flop pairs.**
+
+---
+
 ## How to run the analyses (no install needed)
 
 The easiest way is to run the analyses directly on GitHub using the built-in workflow.
