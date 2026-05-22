@@ -1,9 +1,8 @@
 """Tests for the game engine — focus on payout correctness."""
 
-import pytest
-from hc_stats.deck import Card, Deck
+from hc_stats.analysis import strategy_always_4x
+from hc_stats.deck import Deck
 from hc_stats.game import BettingStage, GameResult, GameState, play_hand
-from hc_stats.analysis import strategy_always_4x, strategy_check_preflop_bet_flop
 
 
 def _always_bet(state: GameState) -> int:

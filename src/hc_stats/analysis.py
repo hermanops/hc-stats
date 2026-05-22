@@ -2,10 +2,9 @@
 
 from __future__ import annotations
 
-from hc_stats.deck import Card, FACE_RANKS, RANKS
+from hc_stats.deck import FACE_RANKS, RANKS, Card
 from hc_stats.evaluator import flop_has_pair
 from hc_stats.game import BettingStage, GameResult, GameState
-
 
 # ---------------------------------------------------------------------------
 # Starting-hand canonical key  (same as poker hand notation)

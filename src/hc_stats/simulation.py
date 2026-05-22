@@ -10,11 +10,12 @@ key is always derived from the same cards that were actually played.
 from __future__ import annotations
 
 from collections import defaultdict
+from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Any, Callable
+from typing import Any
 
 import numpy as np
-from tqdm import tqdm
+from tqdm import tqdm  # type: ignore[import-untyped]
 
 from hc_stats.deck import Deck
 from hc_stats.game import GameResult, Strategy, play_hand

@@ -26,7 +26,7 @@ class Card:
     code: int  # 0-51
 
     @classmethod
-    def from_str(cls, s: str) -> "Card":
+    def from_str(cls, s: str) -> Card:
         """Parse e.g. 'Ah', 'Tc', '2d'."""
         rank = RANKS.index(s[0].upper())
         suit = SUITS.index(s[1].lower())

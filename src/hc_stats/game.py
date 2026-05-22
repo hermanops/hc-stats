@@ -101,7 +101,6 @@ def play_hand(
     dealer_hole = deck.deal_n(2)
 
     community_full = flop + turn_river
-    community_dealer = dealer_hole + community_full  # dealer uses all 7
 
     # Evaluate hands
     player_rank, player_class = evaluate(hole, community_full)

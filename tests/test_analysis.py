@@ -1,10 +1,11 @@
 """Tests for analysis helpers (hand bucketing, key functions)."""
 
 import pytest
-from hc_stats.deck import Card
+
 from hc_stats.analysis import hole_key, key_flop_pair_facecard
-from hc_stats.game import GameResult
+from hc_stats.deck import Card
 from hc_stats.evaluator import HandClass
+from hc_stats.game import GameResult
 
 
 def _make_result(hole_strs: list[str], flop_strs: list[str]) -> GameResult:

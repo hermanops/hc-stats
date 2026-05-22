@@ -15,9 +15,8 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
+import pandas as pd  # type: ignore[import-untyped]
 from rich.console import Console
 from rich.table import Table
 

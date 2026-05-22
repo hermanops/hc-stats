@@ -18,7 +18,7 @@ from __future__ import annotations
 from enum import IntEnum
 
 from treys import Card as TCard  # type: ignore[import-untyped]
-from treys import Evaluator as TreyEvaluator  # type: ignore[import-untyped]
+from treys import Evaluator as TreyEvaluator
 
 from hc_stats.deck import Card
 
@@ -58,15 +58,15 @@ def _to_treys(card: Card) -> int:
     """Convert our Card to a treys integer card."""
     rank_chars = "23456789TJQKA"
     suit_chars = "cdhs"
-    return TCard.new(rank_chars[card.rank] + suit_chars[card.suit])
+    return int(TCard.new(rank_chars[card.rank] + suit_chars[card.suit]))
 
 
 def evaluate(hole: list[Card], community: list[Card]) -> tuple[int, HandClass]:
     """Return (treys_rank, HandClass). Lower treys_rank = stronger hand."""
     t_hole = [_to_treys(c) for c in hole]
     t_board = [_to_treys(c) for c in community]
-    rank = _evaluator.evaluate(t_board, t_hole)
-    hand_class = _TREYS_CLASS_MAP[_evaluator.get_rank_class(rank)]
+    rank: int = int(_evaluator.evaluate(t_board, t_hole))
+    hand_class = _TREYS_CLASS_MAP[int(_evaluator.get_rank_class(rank))]
     return rank, hand_class
 
 

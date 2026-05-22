@@ -12,19 +12,18 @@ Results are written to results/preflop_ev.csv and results/preflop_ev.png.
 from __future__ import annotations
 
 import argparse
-import os
 from pathlib import Path
 
-import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
+import pandas as pd  # type: ignore[import-untyped]
+import seaborn as sns  # type: ignore[import-untyped]
 from rich.console import Console
 from rich.table import Table
 
 from hc_stats.analysis import (
     key_by_hole,
-    strategy_preflop_4x_only,
     strategy_check_preflop_bet_flop,
+    strategy_preflop_4x_only,
 )
 from hc_stats.simulation import run_simulation
 
@@ -114,11 +113,11 @@ def _print_table(df: pd.DataFrame, title: str, subset: pd.DataFrame) -> None:
 
 def _plot_heatmap(df: pd.DataFrame, path: Path) -> None:
     """Plot a 13×13 heatmap of EV diff (4× minus check)."""
-    RANKS_ORDER = list("AKQJT98765432")
+    ranks_order = list("AKQJT98765432")
     # Build pivot table
     import numpy as np
 
-    matrix = pd.DataFrame(index=RANKS_ORDER, columns=RANKS_ORDER, dtype=float)
+    matrix = pd.DataFrame(index=ranks_order, columns=ranks_order, dtype=float)
     matrix[:] = np.nan
 
     for _, row in df.iterrows():

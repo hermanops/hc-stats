@@ -1,14 +1,13 @@
 """Tests for the hand evaluator."""
 
-import pytest
 from hc_stats.deck import Card
 from hc_stats.evaluator import (
     HandClass,
-    evaluate,
     blind_payout,
-    trips_payout,
     dealer_qualifies,
+    evaluate,
     flop_has_pair,
+    trips_payout,
 )
 
 

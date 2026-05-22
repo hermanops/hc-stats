@@ -1,7 +1,6 @@
 """Tests for deck and card primitives."""
 
-import pytest
-from hc_stats.deck import Card, Deck, RANKS, SUITS
+from hc_stats.deck import Card, Deck
 
 
 def test_card_from_str():
