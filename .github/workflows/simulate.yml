@@ -1,0 +1,66 @@
+name: Run Simulations
+
+on:
+  workflow_dispatch:
+    inputs:
+      simulations:
+        description: "Number of hands per strategy"
+        required: true
+        default: "500000"
+      seed:
+        description: "Random seed (for reproducibility)"
+        required: false
+        default: "42"
+      analysis:
+        description: "Which analysis to run"
+        required: true
+        default: "both"
+        type: choice
+        options:
+          - both
+          - preflop
+          - flop
+
+jobs:
+  simulate:
+    name: Run Monte Carlo simulations
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -e .
+
+      - name: Create results directory
+        run: mkdir -p results
+
+      - name: Run pre-flop analysis
+        if: ${{ inputs.analysis == 'preflop' || inputs.analysis == 'both' }}
+        run: |
+          hc-preflop \
+            --simulations ${{ inputs.simulations }} \
+            --seed ${{ inputs.seed }} \
+            --output-dir results
+
+      - name: Run flop analysis
+        if: ${{ inputs.analysis == 'flop' || inputs.analysis == 'both' }}
+        run: |
+          hc-flop \
+            --simulations ${{ inputs.simulations }} \
+            --seed ${{ inputs.seed }} \
+            --output-dir results
+
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: simulation-results-${{ github.run_number }}
+          path: results/
+          retention-days: 30
